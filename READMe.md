@@ -39,3 +39,6 @@
 - Apply and save changes	
 <br> </br>
 - Now when you build your main job, all your conneted job will build also
+<br> </br>
+- ---------------------------------------
+## Jenkins CIDC
