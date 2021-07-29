@@ -46,21 +46,56 @@
 <br> </br>
 **Make sure your deploy key is set to allow write**
 <br> </br>
-- Create new build and add max # of builds to keep to 3
+**CREATE MAIN JOB**
+- Create new build and add `max # of builds to keep` to 3
 - Select `GitHub project` and add you github repos http
-- section OFFICE 365 CONNECTOR select `Restrict where this project can be run` and add `sparta-ubuntu-node`
-- section SOURCE CODE MANAGER select git.
-	- In Reposiitory add repos ssh
-	- Add new Credentials -> jenkins
+- Section OFFICE 365 CONNECTOR select `Restrict where this project can be run` and add `sparta-ubuntu-node`
+- Section SOURCE CODE MANAGER select git.
+	- In `Reposiitory` add repo's ssh
+	- Add new `Credentials` -> jenkins
 	- Follow images set up and add PRIVATE key 
 	![Capture](https://user-images.githubusercontent.com/86292184/127504677-f359fa10-0542-4967-a925-fac5dd26db6d.PNG)
 	- In credentials, select the new key your added
-	- Below, chane Branches to build to `*/main`
+	- Below, change Branches to build to `*/main`
 <br> </br>
-- In secion 
+- In secion BUILD TRIGGERS, select `GitHub hook trigger for GITScm polling`
+	- More on how to set up webhook below
+- In section BUILD ENVIRONMENT select Provide Node & npm bin/ folder to PATH
+- In section BUILD select `Execute Shell` and add 
+```
+cd app
+npm install
+npm test
+```
+- Save job
+<br></br>
+**CREATE NEW MERGE JOB**
+- Follow same steps as before and add these new spets:
+- In section SOURCE CODE MANAGEMENT.
+- Change `Branch to build ` -> `*/dev`
+- Select `Additional Behaviours` -> `Add` ->`Merge before build`
 
+![Capture](https://user-images.githubusercontent.com/86292184/127513035-4e33c732-73ee-4738-9269-073a512fcae4.PNG)
 
-
+- In section BUILD, select `Execute shell` and add 
+```
+git checkout main
+git merge origin/dev
+```
+- In section POST-BUILD ACTIONS, 
+![Capture](https://user-images.githubusercontent.com/86292184/127514664-57e708f3-bcfd-425b-8363-8c25a70bd979.PNG)
+<br> </br>
+- ------------------------------------
+### Connect the new job to main
+- Navigate to main job and open `Configure` and add:
+![Capture](https://user-images.githubusercontent.com/86292184/127515968-62d26b0c-1bef-4427-8eed-7ae5876ecd03.PNG)
+<br> </br>
+- If all works well, once you build the main job, your connected builds should run also
+- -------------------------------------
+### github webhooks
+- In github go to `settings` -> `webhooks`
+- Add the jenkis ip + `/github-webhook/`
+<br> </br>
 - -----------------------------
 ### Create new github branch
 - To create new branch:
@@ -68,10 +103,3 @@
 - In termianl, run `git checkout -b dev`. This switches to new branch
 - To push changes once commited, run `git push -u origin dev`
 <br> </br>
-- -------------------------------------
-### github webhooks
-- In github go to `settings` -> `webhooks`
-- Add the jenkis ip + `/github-webhook/`
-<br> </br>
-- ------------------------
-
