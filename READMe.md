@@ -1,7 +1,8 @@
 # Jenkins
 
 
-![jenkins](https://user-images.githubusercontent.com/86292184/127477136-859476bd-3f40-4d39-8a69-c4c9fd7501f7.png)
+![jenkins](https://user-images.githubusercontent.com/86292184/127503485-703d0f5f-1705-40fb-b4f5-94f4a77566a8.png)
+
 
 
 ## Setting up jenkins jobs.
@@ -41,4 +42,36 @@
 - Now when you build your main job, all your conneted job will build also
 <br> </br>
 - ---------------------------------------
-## Jenkins CIDC
+### Connecting jenkins to github
+<br> </br>
+**Make sure your deploy key is set to allow write**
+<br> </br>
+- Create new build and add max # of builds to keep to 3
+- Select `GitHub project` and add you github repos http
+- section OFFICE 365 CONNECTOR select `Restrict where this project can be run` and add `sparta-ubuntu-node`
+- section SOURCE CODE MANAGER select git.
+	- In Reposiitory add repos ssh
+	- Add new Credentials -> jenkins
+	- Follow images set up and add PRIVATE key 
+	![Capture](https://user-images.githubusercontent.com/86292184/127504677-f359fa10-0542-4967-a925-fac5dd26db6d.PNG)
+	- In credentials, select the new key your added
+	- Below, chane Branches to build to `*/main`
+<br> </br>
+- In secion 
+
+
+
+- -----------------------------
+### Create new github branch
+- To create new branch:
+-  on github `<> code`, find `main` and create new branch called `dev` 
+- In termianl, run `git checkout -b dev`. This switches to new branch
+- To push changes once commited, run `git push -u origin dev`
+<br> </br>
+- -------------------------------------
+### github webhooks
+- In github go to `settings` -> `webhooks`
+- Add the jenkis ip + `/github-webhook/`
+<br> </br>
+- ------------------------
+
