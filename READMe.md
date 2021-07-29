@@ -103,3 +103,25 @@ git merge origin/dev
 - In termianl, run `git checkout -b dev`. This switches to new branch
 - To push changes once commited, run `git push -u origin dev`
 <br> </br>
+- ------------------------------------------------------
+### Creating an ami of instances
+- From lists of instances, select the instance
+- Select `Action` 
+- Select `Image and Templates`
+- Select `create image`
+- Name image
+- Add tag
+- Create Image
+<br> </br>
+- Once ami is created, click on the ami ID
+**Never terminate your instance before the ami completes**
+<br> </br>
+- -------------------------------------
+### Launch ami
+- Select ami you would like to launch 
+- Select launch
+- Go though instance set up steps 
+<br> </br>
+- When ssh back into instance, make sure to change the ssh key from
+`root` to `ubuntu`
+- make sure ot update it `sudo apt-get update -y`
